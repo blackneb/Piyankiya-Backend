@@ -29,7 +29,9 @@
                 'gfor'=>$row['GFOR'],
                 'afor'=>$row['AFOR'],
                 'photos'=>$row['PHOTOS'],
-                'price'=>$row['PRICE']
+                'price'=>$row['PRICE'],
+                'types'=>$row['TYPES']
+                'description'=>$row['DESCRIPTION']
             );
             echo json_encode($post_item);
         }

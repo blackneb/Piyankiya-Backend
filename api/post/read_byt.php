@@ -2,6 +2,9 @@
     //headers
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
+    header('Access-Control-Allow-Methods: POST');
+    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+    header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type, Access-Control-Allow-Mehods, Authorization, X-Requested-With');
 
     include_once '../../config/Database.php';
     include_once '../../models/Post.php';
@@ -12,8 +15,8 @@
 
     //instantiate blog post object
     $post =new Post($db);
-
-    $result = $post->read();
+    $idf =isset($_GET['types'])? $_GET['types'] : die();
+    $result = $post->read_byt($idf);
 
     $num = $result->rowCount();
 
@@ -22,7 +25,6 @@
         $posts_arr['data'] = array();
         while($row = $result->fetch(PDO::FETCH_ASSOC)){
             extract($row);
-
             $post_item = array(
                 'id'=> $row['C_ID'],
                 'name'=>$row['NAME'],
@@ -39,4 +41,5 @@
     }else{
         echo json_encode(array('message'=>'no posts found'));
     }
+
 ?>

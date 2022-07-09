@@ -2,6 +2,9 @@
     //headers
     header('Access-Control-Allow-Origin: *');
     header('Content-Type: application/json');
+    header('Access-Control-Allow-Methods: POST');
+    header("Allow: GET, POST, OPTIONS, PUT, DELETE");
+    header('Access-Control-Allow-Headers: Access-Control-Allow-Headers,Content-Type, Access-Control-Allow-Mehods, Authorization, X-Requested-With');
 
     include_once '../../config/Database.php';
     include_once '../../models/Post.php';
@@ -12,8 +15,8 @@
 
     //instantiate blog post object
     $post =new Post($db);
-
-    $result = $post->read();
+    $idf =isset($_GET['gender'])? $_GET['gender'] : die();
+    $result = $post->read_byg($idf);
 
     $num = $result->rowCount();
 
@@ -39,4 +42,5 @@
     }else{
         echo json_encode(array('message'=>'no posts found'));
     }
+
 ?>

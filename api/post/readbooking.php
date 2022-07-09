@@ -13,7 +13,7 @@
     //instantiate blog post object
     $post =new Post($db);
 
-    $result = $post->read();
+    $result = $post->read_booking();
 
     $num = $result->rowCount();
 
@@ -24,14 +24,11 @@
             extract($row);
 
             $post_item = array(
-                'id'=> $row['C_ID'],
-                'name'=>$row['NAME'],
-                'gfor'=>$row['GFOR'],
-                'afor'=>$row['AFOR'],
-                'photos'=>$row['PHOTOS'],
-                'price'=>$row['PRICE'],
-                'types'=>$row['TYPES'],
-                'description'=>$row['DESCRIPTION']
+                'bid'=> $row['B_ID'],
+                'cid'=> $row['C_ID'],
+                'email'=> $row['EMAIL'],
+                'name'=> $row['CLIENT_NAME'],
+                'phone'=> $row['CLIENT_PHONE']
             );
             array_push($posts_arr['data'],$post_item);
         }
