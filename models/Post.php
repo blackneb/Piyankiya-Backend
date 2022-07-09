@@ -2,6 +2,7 @@
     class Post{
         private $conn;
         private $table = 'clothes';
+        private $tablebook = 'booking';
 
         //post properties
         public $id;
@@ -31,14 +32,15 @@
             $stmt->execute();
             return $stmt;
         }
-        public function create($name,$gfor,$afor,$photos,$price,$description){
-            $query = 'INSERT INTO ' . $this->table . '(NAME, GFOR, AFOR, PHOTOS, PRICE, DESCRIPTION) VALUES (:name, :gfor, :afor, :photos, :price, :description)';
+        public function create($name,$gfor,$afor,$photos,$price,$types,$description){
+            $query = 'INSERT INTO ' . $this->table . '(NAME, GFOR, AFOR, PHOTOS, PRICE, TYPES, DESCRIPTION) VALUES (:name, :gfor, :afor, :photos, :price, :types :description)';
             $stmt = $this->conn->prepare($query);
             $stmt->bindparam(':name', $name);
             $stmt->bindparam(':gfor', $gfor);
             $stmt->bindparam('afor', $afor);
             $stmt->bindparam('photos', $photos);
             $stmt->bindparam('price', $price);
+            $stmt->bindparam('types', $types);
             $stmt->bindparam('description', $description);
             if($stmt->execute()){
                 return true;
@@ -48,14 +50,15 @@
                 return false;
             }
         }
-        public function update($id,$name,$gfor,$afor,$photos,$price,$description){
-            $query = 'UPDATE ' . $this->table . ' SET NAME = :name, GFOR = :gfor, AFOR = :afor, PHOTOS = :photos, PRICE = :price, DESCRIPTION = :description WHERE C_ID = ' . $id;
+        public function update($id,$name,$gfor,$afor,$photos,$price,$types,$description){
+            $query = 'UPDATE ' . $this->table . ' SET NAME = :name, GFOR = :gfor, AFOR = :afor, PHOTOS = :photos, PRICE = :price, TYPES = :types DESCRIPTION = :description WHERE C_ID = ' . $id;
             $stmt = $this->conn->prepare($query);
             $stmt->bindparam(':name', $name);
             $stmt->bindparam(':gfor', $gfor);
             $stmt->bindparam('afor', $afor);
             $stmt->bindparam('photos', $photos);
             $stmt->bindparam('price', $price);
+            $stmt->bindparam('types', $types);
             $stmt->bindparam('description', $description);
             if($stmt->execute()){
                 return true;
@@ -76,6 +79,46 @@
                 echo 'error' . $stmt->error;
                 return false;
             }
+        }
+        public function create_booking($cid,$email,$name,$phone){
+            $query = 'INSERT INTO ' . $this->tablebook . '(B_ID, C_ID, EMAIL, CLIENT_NAME, CLIENT_PHONE) VALUES (:bid, :cid, :email, :name, :phone)';
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindparam(':bid', $bid);
+            $stmt->bindparam(':cid', $cid);
+            $stmt->bindparam(':email', $email);
+            $stmt->bindparam(':name', $name);
+            $stmt->bindparam(':phone', $phone);
+            if($stmt->execute()){
+                return true;
+            }
+            else{
+                echo 'error' . $stmt->error;
+                return false;
+            }
+        }
+        public function read_booking(){
+            $query = 'SELECT * FROM '.$this->tablebook;
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt; 
+        }
+        public function read_byg($gender){
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE GFOR = '. ' "' . $gender. '" ';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;   
+        }
+        public function read_bya($age){
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE AFOR = '. ' "' . $age. '" ';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;   
+        }
+        public function read_byt($types){
+            $query = 'SELECT * FROM ' . $this->table . ' WHERE TYPES = '. ' "' . $types. '" ';
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+            return $stmt;   
         }
     }
 
