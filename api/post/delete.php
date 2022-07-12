@@ -14,10 +14,10 @@
 
     //instantiate blog post object
     $post =new Post($db);
+    $data = json_decode(file_get_contents("php://input"));
 
-    $idf = isset($_GET['id'])? $_GET['id'] : die();
 
-    if($post->delete($idf)){
+    if($post->delete($data->id)){
         echo json_encode(array('message' => 'post deleted'));
     }
     else{

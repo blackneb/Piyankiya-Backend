@@ -17,7 +17,7 @@
 
     $data = json_decode(file_get_contents("php://input"));
 
-    if($post->create($data->name,$data->gfor,$data->afor,$data->photos,$data->price,$data->description)){
+    if($post->create($data->name,$data->gfor,$data->afor,$data->photos,$data->price,$data->types,$data->description)){
         echo json_encode(array('message' => 'post created'));
     }
     else{
