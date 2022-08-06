@@ -21,7 +21,7 @@ if($_FILES['image'])
         );
     }else 
     {
-        $FILE_NAME = $fileName;
+        $FILE_NAME = rand(10, 1000000)."-".strtolower(str_replace(' ','',$fileName));
         $UPLOAD_IMG_NAME = $DIR.strtolower($FILE_NAME);
         $UPLOAD_IMG_NAME = preg_replace('/\s+/', '-', $UPLOAD_IMG_NAME);
     
@@ -30,7 +30,8 @@ if($_FILES['image'])
                 "status" => "success",
                 "error" => false,
                 "message" => "Image has uploaded",
-                "url" => $urlServer."/".$UPLOAD_IMG_NAME
+                "url" => $urlServer."/".$UPLOAD_IMG_NAME,
+                "name" => $FILE_NAME
               );
         }else
         {

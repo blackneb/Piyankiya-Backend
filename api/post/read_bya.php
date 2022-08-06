@@ -31,7 +31,7 @@
                 'name'=>$row['NAME'],
                 'gfor'=>$row['GFOR'],
                 'afor'=>$row['AFOR'],
-                'photos'=>$row['PHOTOS'],
+                'photos'=>"https://blackneb.com/piyankiya/api/post/photos/" . $row['PHOTOS'],
                 'price'=>$row['PRICE'],
                 'types'=>$row['TYPES'],
                 'description'=>$row['DESCRIPTION']

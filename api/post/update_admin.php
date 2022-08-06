@@ -16,12 +16,16 @@
     $post =new Post($db);
 
     $data = json_decode(file_get_contents("php://input"));
+    
+    $hashedpassword = password_hash($data->password, PASSWORD_ARGON2I);
+    $hashedname = password_hash($data->username, PASSWORD_ARGON2I);
 
-    if($post->create_booking($data->cid,$data->email,$data->name,$data->phone)){
-        echo json_encode(array('message' => 'post created'));
+
+    if($post->update_admin($hashedname,$hashedpassword,$data->superadmin)){
+        echo json_encode(array('message' => 'success'));
     }
     else{
-        echo json_encode(array('message' => 'post not created'));
+        echo json_encode(array('message' => 'error'));
     }
 
 ?>
