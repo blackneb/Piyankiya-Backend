@@ -30,7 +30,7 @@
                 'afor'=>$row['AFOR'],
                 'photos'=>$row['PHOTOS'],
                 'price'=>$row['PRICE'],
-                'types'=>$row['TYPES']
+                'types'=>$row['TYPES'],
                 'description'=>$row['DESCRIPTION']
             );
             echo json_encode($post_item);
